@@ -38,7 +38,7 @@ total = 0 # sum of the fibonacci numbers up to "N"
 
 while count < N:
     #adds the current fibonacci number "a" to the total
-    total = total + b
+    total = total + a #error was here, swapped b to a
 
     #Computes the next Fibonacci number in the sequence "b"
     next_value = a + b
@@ -53,12 +53,31 @@ print(total)
 
 # %% ###########################################################
 # Problem 3: Using common Python libraries
+import numpy as np 
+
+fib_numbers = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34] # first 10 numbers in fib sequence
+std_fib_numbers = np.std(fib_numbers) # calculates standard deviation and saves it
+print(std_fib_numbers) #prints std of fib numbers
 # What is the standard deviation of the first 10 numbers in the fibonacci sequence? Use the numpy library to calculate the standard deviation.
 
 # %% ###########################################################
 # Problem 4: Don't repeat yourself by writing functions
 # Write a function that takes an integer N as input and returns the sum of the first N numbers in the fibonacci sequence.
 # Then use this function to calculate the sums for N = 5, 10, 15, 20, 25, and 30 and print them as a list.
+def fib_sum(N):
+    a,b=0,1 #first two fibonacci numbers
+    total = 0
+    count = 0
+    while count < N: #similar to problem 2 cycle, moves up the chain of fibonacci
+        total += a
+        a,b = b, a+b
+        count +=1
+    return total #returns sum
+
+numbers = [5, 10, 15, 20, 25, 30] #numbers given
+sums = [fib_sum(n) for n in numbers] #creates a list of sums for the different numbers given
+print(sums) #shows results
+
 
 # %% ###########################################################
 # Problem 5: Read your error messages
@@ -77,10 +96,11 @@ def find_fib_above_limit(limit):
     :return: index of the first number above limit
     :rtype: integer
     """
-    a = "0"
-    b = "1"
+    a = 0 #ERROR WAS HERE: was "0" as a string, should be an integer (TypeError)
+    b = 1 #ERROR WAS HERE: was "1" as a string, should be an integer (TypeError)
+    index=0 #ERROR WAS HERE: index was not defined (NameError)
 
-    while a <= limit:
+    while a <= limit: ##Thrown Errors here because a and b were strings, source of errors above
         next_value = a + b
         a = b
         b = next_value
@@ -96,16 +116,22 @@ print("The index of the first number above your limit is: ", result)
 # The following function will run but will output the wrong answer sometimes. Add test cases to verify that the function works correctly for a variety of inputs. If you find any inputs that produce incorrect outputs, fix the function. The function, when working properly, should return the sum of all odd Fibonacci numbers less than or equal to the input "limit".
 
 
-def sum_even_fib(limit):
+def sum_odd_fib(limit): #changed name to odd, was even
     a, b = 0, 1
     total = 0
     while b <= limit:
-        if b % 2 == 0:  # This line checks if the Fibonacci number is even
-            total = b
+        #Error in line below, should be 1 if wanting to add the odd numbers
+        if b % 2 == 1:  # This line checks if the Fibonacci number is even
+            total += b #Should have been +=, was just =
         a, b = b, a + b
     return total
 
 
 # Add your test cases here
+print(sum_odd_fib(1))
+print(sum_odd_fib(2))
+print(sum_odd_fib(10))  
+print(sum_odd_fib(20)) 
+print(sum_odd_fib(50))
 
 # %%
