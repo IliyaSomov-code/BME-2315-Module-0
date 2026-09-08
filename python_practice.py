@@ -12,7 +12,18 @@
 # Example: If N = 5, the output should be 0 + 1 + 1 + 2 + 3 = 7
 
 """ # you can use three double-quotes to write multi-line comments
-XXX Write your pseudocode here XXX
+Input "N" as an integer
+Set a=0 #first number
+Set b=1 #second number
+Set count=0
+Set total=0
+While count<N #This creates the cycle
+    Add a to total
+    Set follow_up = a+b
+    Set a=b
+    Set b=follow_up
+    Increment count by 1
+Output total
 """
 
 # %% ###########################################################
@@ -22,18 +33,22 @@ N = 6
 
 a = 0 # set a to the first fibonacci number
 b = 1 # set b to the second fibonacci number
-count = 0
-total = 0
+count = 0 # counts how many fibonacci numbers have been added
+total = 0 # sum of the fibonacci numbers up to "N"
 
 while count < N:
+    #adds the current fibonacci number "a" to the total
     total = total + b
 
+    #Computes the next Fibonacci number in the sequence "b"
     next_value = a + b
     a = b
     b = next_value
 
+    #Increments the counter
     count = count + 1
 
+#Prints the total sum of up to "N" fibonacci numbers
 print(total)
 
 # %% ###########################################################
